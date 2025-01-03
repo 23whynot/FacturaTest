@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeBase.Stickmen
+namespace CodeBase.Character
 {
     public class DetectionArea : MonoBehaviour
     {
