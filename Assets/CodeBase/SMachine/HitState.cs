@@ -1,6 +1,5 @@
 ﻿using System.Collections;
 using CodeBase.Animation;
-using CodeBase.Core.StateMachine;
 using UnityEngine;
 
 namespace CodeBase.SMaschine

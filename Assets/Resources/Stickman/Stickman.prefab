@@ -32,10 +32,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 5916050482874139071}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 250, y: 30}
+  m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &4245633108770955176
 CanvasRenderer:
@@ -163,7 +163,7 @@ GameObject:
   - component: {fileID: 4602192947384004226}
   - component: {fileID: 2892499605097933794}
   - component: {fileID: 6114292062174174311}
-  m_Layer: 0
+  m_Layer: 6
   m_Name: DetectionArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 3514981144200615137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 2.66, y: -10.15, z: 0}
+  m_LocalPosition: {x: -22.4, y: -10.15, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -204,10 +204,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 15.870836
-  m_Height: 31.741673
+  m_Radius: 41.36606
+  m_Height: 82.73212
   m_Direction: 1
-  m_Center: {x: -3.1607952, y: 12.210045, z: 0}
+  m_Center: {x: 22.334429, y: 12.210011, z: 0}
 --- !u!114 &2892499605097933794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -245,6 +245,7 @@ GameObject:
   - component: {fileID: 3857528375725486452}
   - component: {fileID: 322914673918640645}
   - component: {fileID: 3412264173524195425}
+  - component: {fileID: 8573135379828349299}
   m_Layer: 0
   m_Name: Canvas
   m_TagString: Untagged
@@ -335,6 +336,19 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &8573135379828349299
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6068016205016603145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: cc226eb02cc58ce478c7264537002d1e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rotationSpeed: 50
 --- !u!1 &8693042473205421085
 GameObject:
   m_ObjectHideFlags: 0
@@ -5426,8 +5440,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   health: 100
   durationToTarget: 2
+  minDamage: 5
+  maxDamage: 25
   triggerObserver: {fileID: 3275004742061732744}
-  characterBehavior: {fileID: 3458301671945942612}
+  enemyBehavior: {fileID: 3458301671945942612}
 --- !u!114 &3458301671945942612
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5440,7 +5456,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6a742a7cf0e1414aa8017c140fb47f77, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  characters: {fileID: 8876579575282301975}
+  enemy: {fileID: 8876579575282301975}
   detectionArea: {fileID: 6114292062174174311}
   healthBarVisual: {fileID: 2030030129704434465}
   detectionAreaCollider: {fileID: 4602192947384004226}

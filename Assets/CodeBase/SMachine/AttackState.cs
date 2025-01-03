@@ -1,13 +1,14 @@
 ﻿using CodeBase.Constants;
-using CodeBase.Core.StateMachine;
 using DG.Tweening;
 using UnityEngine;
 
-namespace CodeBase.Stickmen.SMaschine
+namespace CodeBase.SMaschine
 {
     public class AttackState : IState
     {
-        private Tween _tween;
+        private Tween _moveTween;
+        private Tween _lookAtTween;
+        
         
         private Animator _animator;
         private Transform _target;
@@ -25,14 +26,16 @@ namespace CodeBase.Stickmen.SMaschine
         public void Enter()
         {
             _animator.SetBool(AnimationConstans.Attack, true);
-            _tween = _enemyTransform.DOMove(_target.position, _durationToTarget).SetEase(Ease.Linear)
+            _moveTween = _enemyTransform.DOMove(_target.position, _durationToTarget).SetEase(Ease.Linear)
                 .OnComplete(Exit);
+            _lookAtTween = _enemyTransform.DOLookAt(_target.position, 0.1f).SetEase(Ease.Linear);
         }
 
         public void Exit()
         {
             _animator.SetBool(AnimationConstans.Attack, false);
-            _tween?.Kill();
+            _moveTween?.Kill();
+            _lookAtTween?.Kill();
         }
     }
 }

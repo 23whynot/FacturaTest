@@ -7,12 +7,11 @@ namespace CodeBase.Car
 {
     public class CarMovement : MonoBehaviour
     {
-        [Header("Movement Parameters")] [SerializeField]
-        private float moveDuration;
+        [Header("Movement Parameters")] 
+        [SerializeField] private float moveDuration;
 
-        [Header("Wobble Parameters")] [SerializeField]
-        private float wobbleAmount;
-
+        [Header("Wobble Parameters")] 
+        [SerializeField] private float wobbleAmount;
         [SerializeField] private float wobbleDuration;
 
         private MainMenu _mainMenu;

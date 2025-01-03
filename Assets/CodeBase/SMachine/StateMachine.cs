@@ -1,6 +1,4 @@
-﻿using CodeBase.Core.StateMachine;
-
-namespace CodeBase.SMaschine
+﻿namespace CodeBase.SMaschine
 {
     public class StateMachine
     {

@@ -2,22 +2,26 @@ using System;
 using CodeBase.Bullets;
 using CodeBase.Car;
 using CodeBase.Core.ObjectPool;
+using CodeBase.Enemy;
 using CodeBase.Spawner;
-using CodeBase.Stickmen;
 using UnityEngine;
+using UnityEngine.Serialization;
+using Random = UnityEngine.Random;
 
-
-namespace CodeBase.Character
+namespace CodeBase.Enemys
 {
-    public class Characters : MonoBehaviour, IPoolableObject
+    public class Enemy : MonoBehaviour, IPoolableObject
     {
-        [Header("Character Parameters")]
+        [Header("Enemy Parameters")]
         [SerializeField] private int health = 100;
         [SerializeField] private float durationToTarget = 3;
+        [SerializeField] private int minDamage = 5;
+        [SerializeField] private int maxDamage = 25;
+        
         
         [Header("Scripts")]
         [SerializeField] private TriggerObserver triggerObserver;
-        [SerializeField] private CharacterBehavior characterBehavior;
+        [SerializeField] private EnemyBehavior enemyBehavior;
         
         
         private SpawnController _spawnController;
@@ -30,7 +34,7 @@ namespace CodeBase.Character
         {
             _spawnController = spawnController;
             
-            characterBehavior.Init(_spawnController);
+            enemyBehavior.Init(_spawnController);
         }
 
         private void Start()
@@ -38,15 +42,20 @@ namespace CodeBase.Character
             triggerObserver.TriggerEnter += TriggerEnter;
         }
 
+        public int GetHealth()
+        {
+            return health;
+        }
+
+        public int GetDamage()
+        {
+            return Random.Range(minDamage, maxDamage);
+        }
+
         public void Activate()
         {
             IsActive = true;
             gameObject.SetActive(true);
-        }
-
-        public int GetHealth()
-        {
-            return health;
         }
 
         public float GetDurationToTarget()
@@ -79,7 +88,7 @@ namespace CodeBase.Character
 
         private void Despawn()
         {
-            characterBehavior.Death();
+            enemyBehavior.Death();
         }
 
         private void OnDestroy()

@@ -1,7 +1,7 @@
 ﻿using System;
 using UnityEngine;
 
-namespace CodeBase.Character
+namespace CodeBase.Enemy
 {
     public class DetectionArea : MonoBehaviour
     {

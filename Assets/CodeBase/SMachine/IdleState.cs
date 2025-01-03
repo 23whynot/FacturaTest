@@ -1,7 +1,7 @@
 ﻿
 
 using CodeBase.Animation;
-using CodeBase.Core.StateMachine;
+using CodeBase.SMaschine;
 
 namespace CodeBase.Stickmen.StateMachine
 {

@@ -3,18 +3,19 @@ using CodeBase.Animation;
 using CodeBase.Services;
 using CodeBase.SMaschine;
 using CodeBase.Spawner;
-using CodeBase.Stickmen;
 using CodeBase.Stickmen.SMaschine;
 using CodeBase.Stickmen.StateMachine;
 using CodeBase.UI.WorldSpaceCanvas;
 using UnityEngine;
+using UnityEngine.Serialization;
 
-namespace CodeBase.Character
+namespace CodeBase.Enemy
 {
-    public class CharacterBehavior : MonoBehaviour
+    public class EnemyBehavior : MonoBehaviour
     {
+        [FormerlySerializedAs("characters")]
         [Header("Scripts")]
-        [SerializeField] private Characters characters;
+        [SerializeField] private Enemys.Enemy enemy;
         [SerializeField] private DetectionArea detectionArea;
         [SerializeField] private HealthBarVisual healthBarVisual;
         
@@ -57,14 +58,14 @@ namespace CodeBase.Character
             }
             
             healthBarVisual.DeactivateHealthBar();
-            _healthService = new HealthService(characters.GetHealth());
+            _healthService = new HealthService(enemy.GetHealth());
             skinnedMeshRenderer.enabled = true;
         }
 
         private void Start()
         {
             _healthService.OnDeath += Death;
-            characters.OnBullet += Hit;
+            enemy.OnBullet += Hit;
             detectionArea.OnDetection += Attack;
         }
 
@@ -92,7 +93,7 @@ namespace CodeBase.Character
 
             particleSystemOnHit.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             boxCollider.enabled = true;
-            characters.Deactivate();
+            enemy.Deactivate();
         }
 
         private void Idle()
@@ -118,13 +119,13 @@ namespace CodeBase.Character
         private void Attack()
         {
             _stateMachine.ChangeState(new AttackState(animator, _spawnController.GetTargetTransform(), transform,
-                characters.GetDurationToTarget()));
+                enemy.GetDurationToTarget()));
         }
 
         private void OnDestroy()
         {
             _healthService.OnDeath -= Death;
-            characters.OnBullet -= Hit;
+            enemy.OnBullet -= Hit;
             detectionArea.OnDetection -= Attack;
         }
     }
