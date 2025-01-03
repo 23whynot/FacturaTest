@@ -30,11 +30,7 @@ namespace CodeBase.Bullets
             _carMovement = carMovement;
             
             _isInjected = true;
-        }
-
-
-        private void Start()
-        {
+            
             tracer.Init(_turretController.GetFirePoint());
         }
 
@@ -64,7 +60,7 @@ namespace CodeBase.Bullets
         private void StartMove()
         {
             _moveTween = transform.DOMove(_turretController.GetTargetForBullet().position,
-                    _carMovement.GetMoveDuration() * _moveDurationMultiplayer).SetEase(Ease.Linear)
+                    _carMovement.GetSpeed() * _moveDurationMultiplayer).SetEase(Ease.Linear)
                 .OnComplete(Deactivate);
         }
 

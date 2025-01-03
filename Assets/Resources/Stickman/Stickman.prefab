@@ -5347,6 +5347,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 3458301671945942612}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7534105232805139700}
     - targetCorrespondingSourceObject: {fileID: -867652005158692576, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8808491158632035515}
@@ -5438,8 +5441,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d8150d5d9a4ab0e4198dedb5b60cf6e7, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  speed: 6
   health: 100
-  durationToTarget: 2
   minDamage: 5
   maxDamage: 25
   triggerObserver: {fileID: 3275004742061732744}
@@ -5459,8 +5462,21 @@ MonoBehaviour:
   enemy: {fileID: 8876579575282301975}
   detectionArea: {fileID: 6114292062174174311}
   healthBarVisual: {fileID: 2030030129704434465}
+  followTargetByCoroutine: {fileID: 7534105232805139700}
   detectionAreaCollider: {fileID: 4602192947384004226}
   boxCollider: {fileID: 8808491158632035515}
   particleSystemOnHit: {fileID: 3446705008575341610}
   animator: {fileID: 3556874256335675435}
   skinnedMeshRenderer: {fileID: 387185985792964872}
+--- !u!114 &7534105232805139700
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7851870036033741035}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 41f5b7ef2dc17f04baae1a7dfe4fd3e9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

@@ -2,23 +2,21 @@ using System;
 using CodeBase.Bullets;
 using CodeBase.Car;
 using CodeBase.Core.ObjectPool;
-using CodeBase.Enemy;
 using CodeBase.Spawner;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Random = UnityEngine.Random;
 
-namespace CodeBase.Enemys
+namespace CodeBase.Enemy
 {
     public class Enemy : MonoBehaviour, IPoolableObject
     {
         [Header("Enemy Parameters")]
+        [SerializeField] private float speed = 6;
         [SerializeField] private int health = 100;
-        [SerializeField] private float durationToTarget = 3;
         [SerializeField] private int minDamage = 5;
         [SerializeField] private int maxDamage = 25;
-        
-        
+
+
         [Header("Scripts")]
         [SerializeField] private TriggerObserver triggerObserver;
         [SerializeField] private EnemyBehavior enemyBehavior;
@@ -35,11 +33,17 @@ namespace CodeBase.Enemys
             _spawnController = spawnController;
             
             enemyBehavior.Init(_spawnController);
+            
         }
 
         private void Start()
         {
             triggerObserver.TriggerEnter += TriggerEnter;
+        }
+
+        public float GetSpeed()
+        {
+            return speed;
         }
 
         public int GetHealth()
@@ -56,11 +60,6 @@ namespace CodeBase.Enemys
         {
             IsActive = true;
             gameObject.SetActive(true);
-        }
-
-        public float GetDurationToTarget()
-        {
-            return durationToTarget;
         }
 
         public void Deactivate()

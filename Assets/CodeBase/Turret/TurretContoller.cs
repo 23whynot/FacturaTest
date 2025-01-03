@@ -1,5 +1,6 @@
 using System.Collections;
 using CodeBase.Bullets;
+using CodeBase.Camera;
 using CodeBase.Core.ObjectPool;
 using CodeBase.UI.Panels;
 using UnityEngine;
@@ -23,41 +24,46 @@ namespace CodeBase.Turret
         [SerializeField] private int preLoadCount = 10;
 
         private TurretModel _model;
-        [SerializeField] private TurretView turretView;
 
         private Vector2 _startTouchPosition;
         private Vector2 _currentTouchPosition;
         private bool _isSwiping;
+        private bool _isFiring;
         private Coroutine _coroutine;
         
         
 
         private ObjectPool _objectPool;
-        private MainMenu _mainMenu;
+        private CameraController _cameraController;
         
         [Inject]
-        private void Construct(ObjectPool objectPool, MainMenu mainMenu)
+        private void Construct(ObjectPool objectPool, CameraController cameraController)
         {
             _objectPool = objectPool;
-            _mainMenu = mainMenu;
+            _cameraController = cameraController;
         }
 
         private void Awake()
         {
             _model = new TurretModel(-360, 360f); // Углы ограничения TODO
             
+            _model.CurrentAngle = transform.localEulerAngles.y;
+            UpdateTurretRotation(_model.CurrentAngle);
+            
             _objectPool.RegisterPrefab<Bullet>(bulletPrefab, preLoadCount);
         }
 
         private void Start()
         {
-            turretView.ShowSwipeHint(true);
-            _mainMenu.OnStartGame += StartSpawnCoroutine;
+            _cameraController.OnCameraReady += StartSpawnCoroutine;
         }
 
         private void Update()
         {
-            HandleSwipe();
+            if (_isFiring)
+            {
+                HandleSwipe();
+            }
         }
 
         public Transform GetTargetForBullet()
@@ -71,7 +77,8 @@ namespace CodeBase.Turret
         }
 
         private void StartSpawnCoroutine()
-        {
+        { 
+            _isFiring = true;
             _coroutine = StartCoroutine(SpawnCoroutine());
         }
 
@@ -103,7 +110,6 @@ namespace CodeBase.Turret
             {
                 _startTouchPosition = Input.mousePosition;
                 _isSwiping = true;
-                turretView.ShowSwipeHint(false);
             }
 
             if (Input.GetMouseButton(0) && _isSwiping)
@@ -123,14 +129,22 @@ namespace CodeBase.Turret
             float swipeDeltaX = (_currentTouchPosition.x - _startTouchPosition.x) * sensitivity;
 
             _model.CurrentAngle = _model.ClampAngle(_model.CurrentAngle + swipeDeltaX);
-            turretView.UpdateTurretRotation(_model.CurrentAngle);
+            UpdateTurretRotation(_model.CurrentAngle);
 
             _startTouchPosition = _currentTouchPosition;
+        }
+        
+        private void UpdateTurretRotation(float angle)
+        {
+            if (transform != null)
+            {
+                transform.localEulerAngles = new Vector3(transform.localEulerAngles.x, angle, transform.localEulerAngles.z);
+            }
         }
 
         private void OnDisable()
         {
-            _mainMenu.OnStartGame -= StartSpawnCoroutine;
+            _cameraController.OnCameraReady -= StartSpawnCoroutine;
             StopSpawnCoroutine();
         }
     }

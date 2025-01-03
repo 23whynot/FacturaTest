@@ -14,17 +14,15 @@ namespace CodeBase.Car
         [SerializeField] private HealthBarVisual healthBarVisual;
         [SerializeField] private Material material;
         [SerializeField] private int health = 100;
-
-        private Color _originalColor;
+        
         private HealthService _healthService;
-        private float _doColorDuration = 0.5f;
+        private float _doColorDuration = 0.1f;
 
         public Action OnDeath;
 
         private void Start()
         {
-            _originalColor = material.color;
-
+            ResetColor();
             _healthService = new HealthService(health);
             healthBarVisual.ActivateHealthBar(_healthService.GetCurrentHealth());
 
@@ -38,18 +36,18 @@ namespace CodeBase.Car
         }
 
         private void TriggerEnter(Collider collider)
-         {
-            if (collider.GetComponentInParent<Enemys.Enemy>() is { } enemy)
+        {
+            if (collider.GetComponentInParent<Enemy.Enemy>() is { } enemy)
             {
                 _healthService.Decrease(enemy.GetDamage());
                 healthBarVisual.ActivateHealthBar(_healthService.GetCurrentHealth());
-                material.DOColor(Color.white, _doColorDuration).OnComplete(ResetColor);
+                material.DOColor(Color.red, _doColorDuration).OnComplete(ResetColor);
             }
         }
 
         private void ResetColor()
         {
-            material.DOColor(_originalColor, _doColorDuration);
+            material.DOColor(Color.white, _doColorDuration);
         }
 
         private void OnDestroy()

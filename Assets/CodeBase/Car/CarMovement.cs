@@ -1,6 +1,7 @@
 using CodeBase.UI.Panels;
 using DG.Tweening;
 using UnityEngine;
+using UnityEngine.Serialization;
 using Zenject;
 
 namespace CodeBase.Car
@@ -8,13 +9,16 @@ namespace CodeBase.Car
     public class CarMovement : MonoBehaviour
     {
         [Header("Movement Parameters")] 
-        [SerializeField] private float moveDuration;
+        [SerializeField] private float speed = 7f;
+        [SerializeField] private float wobbleAmount = 2f;
+        [SerializeField] private float wobbleDuration = 6f;
+        [SerializeField] private float rotateAngle = 2f;
 
-        [Header("Wobble Parameters")] 
-        [SerializeField] private float wobbleAmount;
-        [SerializeField] private float wobbleDuration;
-
+        private Tween _wobbleTween;
+        private Tween _moveTween;
+        private Tween _rotateTween;
         private MainMenu _mainMenu;
+
 
         [Inject]
         public void Construct(MainMenu mainMenu)
@@ -22,43 +26,43 @@ namespace CodeBase.Car
             _mainMenu = mainMenu;
         }
 
-        private Tween _wobbleTween;
-        private Tween _moveTween;
-
         private void Start()
         {
             _mainMenu.OnStartGame += StartMovement;
         }
 
-        public float GetMoveDuration()
+        public float GetSpeed()
         {
-            return moveDuration;
+            return speed;
         }
 
         private void StartMovement()
         {
             StartMove();
-            StartWobble();
         }
 
         private void StartMove()
         {
             float moveDistance = 1000f;
 
-            _moveTween = transform.DOMoveZ(transform.position.z - moveDistance, moveDuration)
+            _moveTween = transform.DOMoveZ(transform.position.z - moveDistance, speed)
                 .SetSpeedBased(true)
                 .SetEase(Ease.Linear)
                 .SetLoops(-1, LoopType.Incremental);
-        }
 
-        private void StartWobble()
-        {
             _wobbleTween = transform
                 .DOMoveX(wobbleAmount, wobbleDuration)
                 .SetRelative()
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
+
+            _rotateTween = transform
+                .DORotate(new Vector3(0, -rotateAngle, 0), wobbleDuration / 2f)
+                .From(new Vector3(0, rotateAngle, 0))
+                .SetLoops(-1, LoopType.Yoyo)
+                .SetEase(Ease.InOutSine);
         }
+
 
         private void StopMovement()
         {
@@ -71,11 +75,17 @@ namespace CodeBase.Car
             {
                 _wobbleTween.Kill();
             }
+
+            if (_rotateTween != null && _rotateTween.IsActive())
+            {
+                _rotateTween.Kill();
+            }
         }
 
         private void OnDestroy()
         {
             _mainMenu.OnStartGame -= StartMovement;
+            StopMovement();
         }
     }
 }

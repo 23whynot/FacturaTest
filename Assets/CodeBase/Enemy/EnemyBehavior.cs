@@ -15,9 +15,10 @@ namespace CodeBase.Enemy
     {
         [FormerlySerializedAs("characters")]
         [Header("Scripts")]
-        [SerializeField] private Enemys.Enemy enemy;
+        [SerializeField] private Enemy enemy;
         [SerializeField] private DetectionArea detectionArea;
         [SerializeField] private HealthBarVisual healthBarVisual;
+        [SerializeField] private FollowTargetByCoroutine followTargetByCoroutine;
         
         [Header("Components")]
         [SerializeField] private Collider detectionAreaCollider;
@@ -45,7 +46,8 @@ namespace CodeBase.Enemy
 
             _animationController = new AnimationController(animator);
             _stateMachine = new StateMachine();
-            _coroutineRunner = this;
+            
+            followTargetByCoroutine.Init(_spawnController, enemy.GetSpeed());
 
             _isInitialized = true;
         }
@@ -64,6 +66,7 @@ namespace CodeBase.Enemy
 
         private void Start()
         {
+            _coroutineRunner = this; // MB to Init
             _healthService.OnDeath += Death;
             enemy.OnBullet += Hit;
             detectionArea.OnDetection += Attack;
@@ -71,6 +74,7 @@ namespace CodeBase.Enemy
 
         public void Death()
         {
+            _spawnController.EnemyDespawn();
             healthBarVisual.DeactivateHealthBar();
             boxCollider.enabled = false;
             _stateMachine.ChangeState(new Death(particleSystemOnHit));
@@ -118,8 +122,7 @@ namespace CodeBase.Enemy
 
         private void Attack()
         {
-            _stateMachine.ChangeState(new AttackState(animator, _spawnController.GetTargetTransform(), transform,
-                enemy.GetDurationToTarget()));
+            _stateMachine.ChangeState(new AttackState(animator, followTargetByCoroutine));
         }
 
         private void OnDestroy()
