@@ -1,4 +1,5 @@
-﻿using CodeBase.Constants;
+﻿using CodeBase.Character;
+using CodeBase.Constants;
 using CodeBase.Core.ObjectPool;
 using CodeBase.Stickmen;
 using UnityEngine;
@@ -25,19 +26,18 @@ namespace CodeBase.Spawner.Factory
             _stickmanPrefab = Resources.Load<GameObject>("Stickman/" + ResourcesConstants.StickmanPrefab);
             
 
-            _pool.RegisterPrefab<Stickman>(_stickmanPrefab, _spawnController.GetPreLoadCount());
+            _pool.RegisterPrefab<Characters>(_stickmanPrefab, _spawnController.GetPreLoadCount());
         }
 
-        public void SpawnStickman()
+        public void SpawnStickman(SpawnArea spawnArea)
         {
-            Spawn<Stickman>();
+            Spawn<Characters>(spawnArea);
         }
 
-        private T Spawn<T>() where T : Stickman
+        private T Spawn<T>(SpawnArea spawnArea) where T : Characters
         {
             T stickmen = _pool.GetObject<T>();
-            stickmen.transform.position = _spawnController.GetSpawnPoint(); //TODO
-            Debug.Log("Spawned Stickman: " + stickmen.transform.position);
+            stickmen.transform.position = spawnArea.GetSpawnPoint();
             stickmen.Init(_spawnController);
             stickmen.Activate();
 

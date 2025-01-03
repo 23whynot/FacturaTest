@@ -1,6 +1,5 @@
 using CodeBase.Camera;
 using CodeBase.Car;
-using CodeBase.Level;
 using CodeBase.Spawner;
 using CodeBase.Spawner.Factory;
 using CodeBase.Turret;
@@ -18,7 +17,6 @@ namespace CodeBase.Core.Zenject
         [SerializeField] private CameraController cameraController;
         [SerializeField] private TurretController turretController;
         [SerializeField] private SpawnController spawnController;
-        [SerializeField] private LevelManager levelManager;
 
         public override void InstallBindings()
         {
@@ -31,7 +29,6 @@ namespace CodeBase.Core.Zenject
             Container.Bind<CameraController>().FromInstance(cameraController).AsSingle();
             Container.Bind<TurretController>().FromInstance(turretController).AsSingle();
             Container.Bind<SpawnController>().FromInstance(spawnController).AsSingle();
-            Container.Bind<LevelManager>().FromInstance(levelManager).AsSingle();
             
             Container.Bind<ObjectPool.ObjectPool>().AsSingle();
             Container.Bind<StickmenFactory>().AsSingle();

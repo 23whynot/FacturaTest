@@ -1,6 +1,4 @@
-using System.Collections;
 using CodeBase.Spawner.Factory;
-using CodeBase.UI.Panels;
 using UnityEngine;
 using Zenject;
 
@@ -8,35 +6,37 @@ namespace CodeBase.Spawner
 {
     public class SpawnController : MonoBehaviour
     {
+        [SerializeField] private SpawnArea spawnAreaOnStartGround;
         [SerializeField] private Transform target;
-        [SerializeField] private SpawnArea spawnArea;
+        [SerializeField] private GroundSpawner groundSpawner;
         [SerializeField] private int preLoadCount = 10;
-        [SerializeField] private int countStickmen = 100;
+        [SerializeField] private int countStickmen = 30;
 
         private StickmenFactory _factory;
-        private MainMenu _mainMenu;
+        private int _enemyOnOneGround;
+        private int _groundWitchStart;
 
         [Inject]
-        public void Construct(StickmenFactory stickmenFactory, MainMenu mainMenu)
+        public void Construct(StickmenFactory stickmenFactory)
         {
             _factory = stickmenFactory;
-            _mainMenu = mainMenu;
         }
 
         private Coroutine _spawnCoroutine;
         
         private int _stickmenSpawned;
 
+        private void Awake()
+        {
+            _groundWitchStart = groundSpawner.GetSpawnCount() + 1;
+            _enemyOnOneGround = (countStickmen + _groundWitchStart / 2) / _groundWitchStart;
+        }
+
         private void Start()
         {
             _factory.StartFactory();
-
-            _mainMenu.OnStartGame += StartSpawnCoroutine;
-        }
-
-        public void StickmanDespawned()
-        {
-            _stickmenSpawned--;
+            StartSpawn(spawnAreaOnStartGround);
+            groundSpawner.OnSpawn += StartSpawn;
         }
 
         public int GetPreLoadCount()
@@ -44,43 +44,22 @@ namespace CodeBase.Spawner
             return preLoadCount;
         }
 
-        public Vector3 GetSpawnPoint()
-        {
-            return spawnArea.GetSpawnPoint();
-        }
-
         public Transform GetTargetTransform()
         {
             return target;
         }
 
-        private void StartSpawnCoroutine()
+        private void StartSpawn(SpawnArea spawnArea)
         {
-            _spawnCoroutine = StartCoroutine(SpawnProcess());
-        }
-
-        private IEnumerator SpawnProcess()
-        {
-            while (true)
+            for (int i = 0; i < _enemyOnOneGround; i++)
             {
-                if (countStickmen > _stickmenSpawned)
-                {
-                    _factory.SpawnStickman();
-                    _stickmenSpawned++;
-                }
-                
-                yield return null;
+                _factory.SpawnStickman(spawnArea);
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            if (_spawnCoroutine != null)
-            {
-                StopCoroutine(_spawnCoroutine);
-                _spawnCoroutine = null;
-            }
-            _mainMenu.OnStartGame -= StartSpawnCoroutine;
+            groundSpawner.OnSpawn -= StartSpawn;
         }
     }
 }

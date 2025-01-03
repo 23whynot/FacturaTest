@@ -5,7 +5,6 @@ namespace CodeBase.Services
 {
     public class HealthService
     {
-        private Character _character;
         private int _currentHealth;
 
         public event Action<int> OnHealthChanged; // FOR UI
