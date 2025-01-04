@@ -3,6 +3,7 @@ using CodeBase.Bullets;
 using CodeBase.Car;
 using CodeBase.Core.ObjectPool;
 using CodeBase.Spawner;
+using CodeBase.UI.WorldSpaceCanvas;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -15,6 +16,8 @@ namespace CodeBase.Enemy
         [SerializeField] private int health = 100;
         [SerializeField] private int minDamage = 5;
         [SerializeField] private int maxDamage = 25;
+        [SerializeField] private int scoreCountMax = 20;
+        [SerializeField] private int scoreCountMin = 5;
 
 
         [Header("Scripts")]
@@ -39,6 +42,11 @@ namespace CodeBase.Enemy
         private void Start()
         {
             triggerObserver.TriggerEnter += TriggerEnter;
+        }
+
+        public int GetScoreCount()
+        {
+            return Random.Range(scoreCountMin, scoreCountMax);
         }
 
         public float GetSpeed()
@@ -75,11 +83,7 @@ namespace CodeBase.Enemy
             {
                 OnBullet?.Invoke(bullet.GetDamage());
             }
-            else if (other.TryGetComponent<CarMovement> (out var car))
-            {
-                Despawn();
-            }
-            else
+            else if (other.GetComponentInParent<CarMovement>() is {} car)
             {
                 Despawn();
             }

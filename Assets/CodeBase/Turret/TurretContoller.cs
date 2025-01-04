@@ -4,7 +4,6 @@ using CodeBase.Camera;
 using CodeBase.Core.ObjectPool;
 using CodeBase.UI.Panels;
 using UnityEngine;
-
 using Zenject;
 
 namespace CodeBase.Turret
@@ -31,8 +30,6 @@ namespace CodeBase.Turret
         private bool _isFiring;
         private Coroutine _coroutine;
         
-        
-
         private ObjectPool _objectPool;
         private CameraController _cameraController;
         
@@ -45,7 +42,7 @@ namespace CodeBase.Turret
 
         private void Awake()
         {
-            _model = new TurretModel(-360, 360f); // Углы ограничения TODO
+            _model = new TurretModel(-360, 360f);
             
             _model.CurrentAngle = transform.localEulerAngles.y;
             UpdateTurretRotation(_model.CurrentAngle);
@@ -95,7 +92,7 @@ namespace CodeBase.Turret
         {
             while (true)
             {
-                Bullet  bullet = _objectPool.GetObject<Bullet>();
+                Bullet bullet = _objectPool.GetObject<Bullet>();
                 bullet.transform.position = firePoint.position;
                 bullet.transform.rotation = firePoint.rotation;
                 bullet.Activate();
@@ -103,9 +100,34 @@ namespace CodeBase.Turret
             }
         }
 
-
         private void HandleSwipe()
         {
+            if (Input.touchCount > 0)
+            {
+                Touch touch = Input.GetTouch(0);
+
+                switch (touch.phase)
+                {
+                    case TouchPhase.Began:
+                        _startTouchPosition = touch.position;
+                        _isSwiping = true;
+                        break;
+
+                    case TouchPhase.Moved:
+                        if (_isSwiping)
+                        {
+                            _currentTouchPosition = touch.position;
+                            AdjustAim();
+                        }
+                        break;
+
+                    case TouchPhase.Ended:
+                    case TouchPhase.Canceled:
+                        _isSwiping = false;
+                        break;
+                }
+            }
+
             if (Input.GetMouseButtonDown(0))
             {
                 _startTouchPosition = Input.mousePosition;

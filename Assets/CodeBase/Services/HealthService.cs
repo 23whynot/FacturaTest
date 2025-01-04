@@ -1,5 +1,4 @@
 using System;
-using CodeBase.Stickmen;
 
 namespace CodeBase.Services
 {

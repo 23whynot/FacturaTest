@@ -1,4 +1,3 @@
-using System;
 using System.Collections;
 using CodeBase.Core.ObjectPool;
 using CodeBase.Environment;

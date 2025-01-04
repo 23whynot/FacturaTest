@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using CodeBase.Animation;
+using CodeBase.Core;
 using CodeBase.Services;
 using CodeBase.SMaschine;
 using CodeBase.Spawner;
@@ -8,17 +9,18 @@ using CodeBase.Stickmen.StateMachine;
 using CodeBase.UI.WorldSpaceCanvas;
 using UnityEngine;
 using UnityEngine.Serialization;
+using Zenject;
 
 namespace CodeBase.Enemy
 {
     public class EnemyBehavior : MonoBehaviour
     {
-        [FormerlySerializedAs("characters")]
         [Header("Scripts")]
         [SerializeField] private Enemy enemy;
         [SerializeField] private DetectionArea detectionArea;
         [SerializeField] private HealthBarVisual healthBarVisual;
         [SerializeField] private FollowTargetByCoroutine followTargetByCoroutine;
+        [SerializeField] private ScoreDisplayManager scoreDisplayManager;
         
         [Header("Components")]
         [SerializeField] private Collider detectionAreaCollider;
@@ -28,9 +30,14 @@ namespace CodeBase.Enemy
         [SerializeField] private ParticleSystem particleSystemOnHit;
         [SerializeField] private Animator animator;
         [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
-        
 
+        [Inject]
+        public void Construct(ScoreService scoreService)
+        {
+            _scoreService = scoreService;
+        }
 
+        private ScoreService _scoreService;
         private AnimationController _animationController;
         private StateMachine _stateMachine;
         private SpawnController _spawnController;
@@ -66,7 +73,7 @@ namespace CodeBase.Enemy
 
         private void Start()
         {
-            _coroutineRunner = this; // MB to Init
+            _coroutineRunner = this;
             _healthService.OnDeath += Death;
             enemy.OnBullet += Hit;
             detectionArea.OnDetection += Attack;
@@ -74,11 +81,14 @@ namespace CodeBase.Enemy
 
         public void Death()
         {
+            int scoreCount = enemy.GetScoreCount();
+            boxCollider.enabled = false;
+            skinnedMeshRenderer.enabled = false;
             _spawnController.EnemyDespawn();
             healthBarVisual.DeactivateHealthBar();
-            boxCollider.enabled = false;
+            scoreDisplayManager.ActivateScoreDisplay(scoreCount);
+            _scoreService.IncrementScore(scoreCount);
             _stateMachine.ChangeState(new Death(particleSystemOnHit));
-            skinnedMeshRenderer.enabled = false;
             _deathCoroutine = StartCoroutine(DeathCoroutine());
         }
 
@@ -97,6 +107,7 @@ namespace CodeBase.Enemy
 
             particleSystemOnHit.Stop(true, ParticleSystemStopBehavior.StopEmittingAndClear);
             boxCollider.enabled = true;
+            scoreDisplayManager.DeactivateScoreDisplay();
             enemy.Deactivate();
         }
 
@@ -108,7 +119,8 @@ namespace CodeBase.Enemy
         private void Hit(int damage)
         {
             _healthService.Decrease(damage);
-            healthBarVisual.ActivateHealthBar(_healthService.GetCurrentHealth());
+            healthBarVisual.ActivateHealthBar(damage);
+            
             if (_healthService.GetCurrentHealth() <= 0)
             {
                 Death();

@@ -1,5 +1,6 @@
 using CodeBase.Camera;
 using CodeBase.Car;
+using CodeBase.Services;
 using CodeBase.Spawner;
 using CodeBase.Spawner.Factory;
 using CodeBase.Turret;
@@ -34,6 +35,11 @@ namespace CodeBase.Core.Zenject
                 .FromComponentInNewPrefabResource("Panels/WinMenu")
                 .AsSingle()
                 .NonLazy();
+            Container.Bind<ScoreVisual>()
+                .FromComponentInNewPrefabResource("Panels/HUD")
+                .AsSingle()
+                .NonLazy();
+            
             Container.Bind<CarMovement>().FromInstance(carMovement).AsSingle();
             Container.Bind<CanvasManager>().FromInstance(canvasManager).AsSingle();
             Container.Bind<CameraController>().FromInstance(cameraController).AsSingle();
@@ -44,6 +50,7 @@ namespace CodeBase.Core.Zenject
             
             Container.Bind<ObjectPool.ObjectPool>().AsSingle();
             Container.Bind<StickmenFactory>().AsSingle();
+            Container.Bind<ScoreService>().AsSingle();
         }
     }
 }

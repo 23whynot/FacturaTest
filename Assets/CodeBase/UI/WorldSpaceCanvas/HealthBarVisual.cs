@@ -7,13 +7,13 @@ namespace CodeBase.UI.WorldSpaceCanvas
     {
         [Header("UI Elements")] 
         [SerializeField] private Image healthBar;
-        [SerializeField] private Canvas worldSpaceCanvas;
+        [SerializeField] private GameObject fillBackGround;
         
         private float _currentHealth = 1f;
         
         public void ActivateHealthBar(int count)
         {
-            worldSpaceCanvas.enabled = true;
+            fillBackGround.SetActive(true);
             SetCount(count);
         }
 
@@ -25,7 +25,7 @@ namespace CodeBase.UI.WorldSpaceCanvas
 
         public void DeactivateHealthBar()
         {
-            worldSpaceCanvas.enabled = false;
+            fillBackGround.SetActive(false);
         }
     }
 }

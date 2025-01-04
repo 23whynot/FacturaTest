@@ -18,7 +18,7 @@ namespace CodeBase.Spawner.Factory
         }
         public void Init()
         {
-            _stickmanPrefab = Resources.Load<GameObject>("Stickman/" + ResourcesConstants.StickmanPrefab);
+            _stickmanPrefab = Resources.Load<GameObject>("Enemy/" + ResourcesConstants.StickmanPrefab);
             
             _pool.RegisterPrefab<Enemy.Enemy>(_stickmanPrefab, _spawnController.GetPreLoadCount());
         }
