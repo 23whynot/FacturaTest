@@ -13,10 +13,10 @@ TagManager:
   - UI
   - DetectionArea
   - Player
-  - 
-  - 
-  - 
-  - 
+  - DespawnArea
+  - Bullet
+  - Enemy
+  - WinColider
   - 
   - 
   - 

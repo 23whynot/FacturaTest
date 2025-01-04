@@ -1,10 +1,12 @@
 using System;
 using CodeBase.Enemy;
+using CodeBase.Environment;
 using CodeBase.Services;
 using CodeBase.Stickmen.SMaschine;
 using CodeBase.UI.WorldSpaceCanvas;
 using DG.Tweening;
 using UnityEngine;
+using Zenject.SpaceFighter;
 
 namespace CodeBase.Car
 {
@@ -19,6 +21,7 @@ namespace CodeBase.Car
         private float _doColorDuration = 0.1f;
 
         public Action OnDeath;
+        public Action OnEndLevel;
 
         private void Start()
         {
@@ -43,6 +46,10 @@ namespace CodeBase.Car
                 healthBarVisual.ActivateHealthBar(_healthService.GetCurrentHealth());
                 material.DOColor(Color.red, _doColorDuration).OnComplete(ResetColor);
             }
+            else if (collider.GetComponentInParent<Ground>() is { } ground)
+            {
+                OnEndLevel?.Invoke();
+            } 
         }
 
         private void ResetColor()

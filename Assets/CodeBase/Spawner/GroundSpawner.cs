@@ -9,8 +9,8 @@ namespace CodeBase.Spawner
 {
     public class GroundSpawner : MonoBehaviour
     {
-        [Header("Prefabs")] [SerializeField] private GameObject groundPrefab;
-        [SerializeField] private GameObject groundWitchColliderPrefab;
+        [Header("Prefabs")] 
+        [SerializeField] private GameObject groundPrefab;
 
         [Header("Configuration")] [SerializeField]
         private int spawnCount = 4;

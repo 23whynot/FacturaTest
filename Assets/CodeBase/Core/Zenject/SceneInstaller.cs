@@ -12,6 +12,7 @@ namespace CodeBase.Core.Zenject
 {
     public class SceneInstaller : MonoInstaller
     {
+        [SerializeField] private Car.Car car;
         [SerializeField] private CarMovement carMovement;
         [SerializeField] private CanvasManager canvasManager;
         [SerializeField] private CameraController cameraController;
@@ -25,12 +26,21 @@ namespace CodeBase.Core.Zenject
                 .FromComponentInNewPrefabResource("Panels/MainMenu")
                 .AsSingle()
                 .NonLazy();
+            Container.Bind<LooseMenu>()
+                .FromComponentInNewPrefabResource("Panels/LooseMenu")
+                .AsSingle()
+                .NonLazy();
+            Container.Bind<WinMenu>()
+                .FromComponentInNewPrefabResource("Panels/WinMenu")
+                .AsSingle()
+                .NonLazy();
             Container.Bind<CarMovement>().FromInstance(carMovement).AsSingle();
             Container.Bind<CanvasManager>().FromInstance(canvasManager).AsSingle();
             Container.Bind<CameraController>().FromInstance(cameraController).AsSingle();
             Container.Bind<TurretController>().FromInstance(turretController).AsSingle();
             Container.Bind<SpawnController>().FromInstance(spawnController).AsSingle();
             Container.Bind<GroundSpawner>().FromInstance(groundSpawner).AsSingle();
+            Container.Bind<Car.Car>().FromInstance(car).AsSingle();
             
             Container.Bind<ObjectPool.ObjectPool>().AsSingle();
             Container.Bind<StickmenFactory>().AsSingle();

@@ -4460,6 +4460,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boxCollider: {fileID: 7199393469255892444}
+  groundCollider: {fileID: 0}
 --- !u!65 &2986421723219598190
 BoxCollider:
   m_ObjectHideFlags: 0
@@ -8016,7 +8017,7 @@ GameObject:
   m_Component:
   - component: {fileID: 7869298411067211250}
   - component: {fileID: 7199393469255892444}
-  m_Layer: 0
+  m_Layer: 11
   m_Name: colider
   m_TagString: Untagged
   m_Icon: {fileID: 0}

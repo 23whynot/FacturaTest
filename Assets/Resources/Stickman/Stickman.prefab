@@ -179,7 +179,7 @@ Transform:
   m_GameObject: {fileID: 3514981144200615137}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -22.4, y: -10.15, z: 0}
+  m_LocalPosition: {x: -33.5, y: -10.15, z: 17.8}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -204,10 +204,10 @@ CapsuleCollider:
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 41.36606
-  m_Height: 82.73212
+  m_Radius: 82.79646
+  m_Height: 165.59293
   m_Direction: 1
-  m_Center: {x: 22.334429, y: 12.210011, z: 0}
+  m_Center: {x: 28.294638, y: 12.209929, z: -17.708368}
 --- !u!114 &2892499605097933794
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5302,12 +5302,20 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: -867652005158692576, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
+      propertyPath: m_Layer
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: -867652005158692576, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
       propertyPath: m_IsActive
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
       propertyPath: m_Name
       value: Stickman
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
+      propertyPath: m_Layer
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: f2f234030d6ecec4eb688e53cf47dacf, type: 3}
       propertyPath: m_IsActive

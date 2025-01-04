@@ -6,9 +6,8 @@ namespace CodeBase.Services
     public class HealthService
     {
         private int _currentHealth;
-
-        public event Action<int> OnHealthChanged; // FOR UI
-        public event Action OnDeath; //FOR GAME
+        
+        public event Action OnDeath;
 
         public HealthService(int health)
         {
@@ -23,9 +22,7 @@ namespace CodeBase.Services
         public void Decrease(int amount)
         {
             _currentHealth -= amount;
-            OnHealthChanged?.Invoke(_currentHealth);
-
-            if (_currentHealth == 0)
+            if (_currentHealth <= 0)
             {
                 OnDeath?.Invoke();
             }

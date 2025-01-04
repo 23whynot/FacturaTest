@@ -317,9 +317,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 1333903307}
   spawnArea: {fileID: 1236316090}
-  preLoadCount: 50
-  countEnemy: 100
-  enemyInMoment: 15
+  preLoadCount: 15
+  countEnemy: 75
+  enemyInMoment: 10
 --- !u!114 &670505466
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -333,9 +333,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   groundPrefab: {fileID: 4570949980947665254, guid: 98f3b5dfe61c26947b2d740b340ed7be, type: 3}
-  groundWitchColliderPrefab: {fileID: 3928666426887046475, guid: edec6076bb6d66d439c2c491c31ca771, type: 3}
-  spawnCount: 5
-  maxSegmentInMoment: 3
+  spawnCount: 3
+  maxSegmentInMoment: 2
   spawnStartPoint: {x: 0, y: 0, z: 0}
   spawnOffset: {x: 0, y: 0, z: -105}
 --- !u!1 &705507993
@@ -651,6 +650,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 38449b062feb57c49bb65e8502bcc0cc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  car: {fileID: 1333903316}
   carMovement: {fileID: 1333903308}
   canvasManager: {fileID: 1633833585}
   cameraController: {fileID: 963194230}
@@ -844,7 +844,7 @@ Transform:
   m_GameObject: {fileID: 1236316088}
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0.63138926, y: 0.023139954, z: -59.98}
+  m_LocalPosition: {x: 0.63138926, y: 0.023139954, z: -69.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -862,7 +862,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a6c3b6b72b214016b53601f9855c2027, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  areaSize: {x: 15, y: 0, z: 75.1}
+  areaSize: {x: 9.5, y: 0, z: 75.1}
 --- !u!1 &1308531526
 GameObject:
   m_ObjectHideFlags: 0
@@ -874,7 +874,7 @@ GameObject:
   - component: {fileID: 1308531527}
   - component: {fileID: 1308531528}
   - component: {fileID: 1308531529}
-  m_Layer: 0
+  m_Layer: 8
   m_Name: DespawnArea
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -890,7 +890,7 @@ Transform:
   m_GameObject: {fileID: 1308531526}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 8.92}
+  m_LocalPosition: {x: 0, y: 0, z: 13.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -1315,7 +1315,7 @@ Canvas:
   m_OverridePixelPerfect: 0
   m_SortingBucketNormalizedSize: 0
   m_VertexColorAlwaysGammaSpace: 0
-  m_AdditionalShaderChannelsFlag: 0
+  m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
   m_SortingOrder: 0
