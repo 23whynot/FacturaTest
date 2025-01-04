@@ -17,6 +17,7 @@ namespace CodeBase.Core.Zenject
         [SerializeField] private CameraController cameraController;
         [SerializeField] private TurretController turretController;
         [SerializeField] private SpawnController spawnController;
+        [SerializeField] private GroundSpawner groundSpawner;
 
         public override void InstallBindings()
         {
@@ -29,6 +30,7 @@ namespace CodeBase.Core.Zenject
             Container.Bind<CameraController>().FromInstance(cameraController).AsSingle();
             Container.Bind<TurretController>().FromInstance(turretController).AsSingle();
             Container.Bind<SpawnController>().FromInstance(spawnController).AsSingle();
+            Container.Bind<GroundSpawner>().FromInstance(groundSpawner).AsSingle();
             
             Container.Bind<ObjectPool.ObjectPool>().AsSingle();
             Container.Bind<StickmenFactory>().AsSingle();
