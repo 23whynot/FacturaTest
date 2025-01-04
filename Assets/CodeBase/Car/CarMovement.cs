@@ -13,6 +13,9 @@ namespace CodeBase.Car
         [SerializeField] private float wobbleAmount = 2f;
         [SerializeField] private float wobbleDuration = 6f;
         [SerializeField] private float rotateAngle = 2f;
+        
+        [Header("Visual parameters")]
+        [SerializeField] private ParticleSystem particle;
 
         private Tween _wobbleTween;
         private Tween _moveTween;
@@ -28,6 +31,7 @@ namespace CodeBase.Car
 
         private void Start()
         {
+            particle.Stop();
             _mainMenu.OnStartGame += StartMovement;
         }
 
@@ -39,6 +43,7 @@ namespace CodeBase.Car
         private void StartMovement()
         {
             StartMove();
+            particle.Play();
         }
 
         private void StartMove()
