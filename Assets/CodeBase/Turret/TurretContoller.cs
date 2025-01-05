@@ -1,6 +1,7 @@
 using System.Collections;
 using CodeBase.Bullets;
 using CodeBase.Camera;
+using CodeBase.Constants;
 using CodeBase.Core.ObjectPool;
 using CodeBase.UI.Panels;
 using UnityEngine;
@@ -23,12 +24,14 @@ namespace CodeBase.Turret
         [SerializeField] private int preLoadCount = 10;
 
         [Inject]
-        private void Construct(ObjectPool objectPool, CameraController cameraController)
+        private void Construct(ObjectPool objectPool, CameraController cameraController, AudioService audioService)
         {
             _objectPool = objectPool;
             _cameraController = cameraController;
+            _audioService = audioService;
         }
 
+        private AudioService _audioService;
         private TurretModel _model;
         private ObjectPool _objectPool;
         private CameraController _cameraController;
@@ -94,6 +97,7 @@ namespace CodeBase.Turret
                 bullet.transform.position = firePoint.position;
                 bullet.transform.rotation = firePoint.rotation;
                 bullet.Activate();
+                _audioService.PlaySound(AudioConstants.Shoot);
                 yield return new WaitForSeconds(fireRate);
             }
         }

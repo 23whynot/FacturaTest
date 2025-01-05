@@ -1,5 +1,7 @@
 ﻿using System.Collections;
 using CodeBase.Animation;
+using CodeBase.Camera;
+using CodeBase.Constants;
 using CodeBase.Services;
 using CodeBase.Spawner;
 using CodeBase.StateMachine;
@@ -28,11 +30,13 @@ namespace CodeBase.Enemy
         [SerializeField] private SkinnedMeshRenderer skinnedMeshRenderer;
 
         [Inject]
-        public void Construct(ScoreService scoreService)
+        public void Construct(ScoreService scoreService, AudioService audioService)
         {
             _scoreService = scoreService;
+            _audioService = audioService;
         }
 
+        private AudioService _audioService;
         private ScoreService _scoreService;
         private AnimationController _animationController;
         private StateMachine.StateMachine _stateMachine;
@@ -84,6 +88,7 @@ namespace CodeBase.Enemy
             scoreDisplayManager.ActivateScoreDisplay(scoreCount);
             _scoreService.IncrementScore(scoreCount);
             _stateMachine.ChangeState(new Death(particleSystemOnHit));
+            _audioService.PlaySound(AudioConstants.EnemyDeath);
             _deathCoroutine = StartCoroutine(DeathCoroutine());
         }
 

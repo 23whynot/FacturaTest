@@ -20,6 +20,7 @@ namespace CodeBase.Core.Zenject
         [SerializeField] private TurretController turretController;
         [SerializeField] private SpawnController spawnController;
         [SerializeField] private GroundSpawner groundSpawner;
+        [SerializeField] private AudioService audioService;
 
         public override void InstallBindings()
         {
@@ -47,6 +48,7 @@ namespace CodeBase.Core.Zenject
             Container.Bind<SpawnController>().FromInstance(spawnController).AsSingle();
             Container.Bind<GroundSpawner>().FromInstance(groundSpawner).AsSingle();
             Container.Bind<Car.Car>().FromInstance(car).AsSingle();
+            Container.Bind<AudioService>().FromInstance(audioService).AsSingle();
             
             Container.Bind<ObjectPool.ObjectPool>().AsSingle();
             Container.Bind<StickmenFactory>().AsSingle();

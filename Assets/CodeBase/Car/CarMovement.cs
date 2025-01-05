@@ -1,3 +1,5 @@
+using CodeBase.Camera;
+using CodeBase.Constants;
 using CodeBase.UI.Panels;
 using DG.Tweening;
 using UnityEngine;
@@ -17,11 +19,13 @@ namespace CodeBase.Car
         [SerializeField] private ParticleSystem particle;
 
         [Inject]
-        public void Construct(MainMenu mainMenu)
+        public void Construct(MainMenu mainMenu, AudioService audioService)
         {
             _mainMenu = mainMenu;
+            _audioService = audioService;
         }
 
+        private AudioService _audioService;
         private MainMenu _mainMenu;
         private Tween _wobbleTween;
         private Tween _moveTween;
@@ -48,6 +52,7 @@ namespace CodeBase.Car
         {
             float moveDistance = 1000f;
 
+            _audioService.PlaySound(AudioConstants.Engine);
             _moveTween = transform.DOMoveZ(transform.position.z - moveDistance, speed)
                 .SetSpeedBased(true)
                 .SetEase(Ease.Linear)
