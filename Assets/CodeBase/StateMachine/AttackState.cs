@@ -1,9 +1,8 @@
 ﻿using CodeBase.Constants;
 using CodeBase.Enemy;
-using DG.Tweening;
 using UnityEngine;
 
-namespace CodeBase.SMaschine
+namespace CodeBase.StateMachine
 {
     public class AttackState : IState
     {
@@ -18,13 +17,13 @@ namespace CodeBase.SMaschine
         
         public void Enter()
         {
-            _animator.SetBool(AnimationConstans.Attack, true);
+            _animator.SetBool(AnimationConstants.Attack, true);
             _followTargetByCoroutine.StartFollow();
         }
 
         public void Exit()
         {
-            _animator.SetBool(AnimationConstans.Attack, false);
+            _animator.SetBool(AnimationConstants.Attack, false);
             _followTargetByCoroutine.StopFollow();
         }
     }

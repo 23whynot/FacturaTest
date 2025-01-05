@@ -1,7 +1,6 @@
 using CodeBase.UI.Panels;
 using DG.Tweening;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace CodeBase.Car
@@ -17,18 +16,17 @@ namespace CodeBase.Car
         [Header("Visual parameters")]
         [SerializeField] private ParticleSystem particle;
 
-        private Tween _wobbleTween;
-        private Tween _moveTween;
-        private Tween _rotateTween;
-        private MainMenu _mainMenu;
-
-
         [Inject]
         public void Construct(MainMenu mainMenu)
         {
             _mainMenu = mainMenu;
         }
 
+        private MainMenu _mainMenu;
+        private Tween _wobbleTween;
+        private Tween _moveTween;
+        private Tween _rotateTween;
+        
         private void Start()
         {
             particle.Stop();
@@ -67,8 +65,7 @@ namespace CodeBase.Car
                 .SetLoops(-1, LoopType.Yoyo)
                 .SetEase(Ease.InOutSine);
         }
-
-
+        
         private void StopMovement()
         {
             if (_moveTween != null && _moveTween.IsActive())

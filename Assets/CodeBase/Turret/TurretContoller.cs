@@ -22,23 +22,21 @@ namespace CodeBase.Turret
         [SerializeField] private GameObject bulletPrefab;
         [SerializeField] private int preLoadCount = 10;
 
-        private TurretModel _model;
-
-        private Vector2 _startTouchPosition;
-        private Vector2 _currentTouchPosition;
-        private bool _isSwiping;
-        private bool _isFiring;
-        private Coroutine _coroutine;
-        
-        private ObjectPool _objectPool;
-        private CameraController _cameraController;
-        
         [Inject]
         private void Construct(ObjectPool objectPool, CameraController cameraController)
         {
             _objectPool = objectPool;
             _cameraController = cameraController;
         }
+
+        private TurretModel _model;
+        private ObjectPool _objectPool;
+        private CameraController _cameraController;
+        private Coroutine _coroutine;
+        private Vector2 _startTouchPosition;
+        private Vector2 _currentTouchPosition;
+        private bool _isSwiping;
+        private bool _isFiring;
 
         private void Awake()
         {
@@ -164,7 +162,7 @@ namespace CodeBase.Turret
             }
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
             _cameraController.OnCameraReady -= StartSpawnCoroutine;
             StopSpawnCoroutine();

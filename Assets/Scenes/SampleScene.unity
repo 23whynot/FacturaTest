@@ -5675,7 +5675,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   animator: {fileID: 963194231}
-  animationDuration: 1
 --- !u!95 &963194231
 Animator:
   serializedVersion: 5
@@ -6707,8 +6706,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 1065839880}
+  - {fileID: 717304326}
+  - {fileID: 1759181371}
   - {fileID: 705507995}
   - {fileID: 1822235356}
-  - {fileID: 717304326}
   - {fileID: 670505464}
-  - {fileID: 1759181371}

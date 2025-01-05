@@ -13,7 +13,7 @@ namespace CodeBase.UI.Panels
     {
         [SerializeField] private Button restartGameButton;
         [SerializeField] private TextMeshProUGUI scoreText;
-        
+
         private ScoreService _scoreService;
 
         [Inject]

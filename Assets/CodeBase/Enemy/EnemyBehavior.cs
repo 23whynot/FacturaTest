@@ -1,14 +1,10 @@
 ﻿using System.Collections;
 using CodeBase.Animation;
-using CodeBase.Core;
 using CodeBase.Services;
-using CodeBase.SMaschine;
 using CodeBase.Spawner;
-using CodeBase.Stickmen.SMaschine;
-using CodeBase.Stickmen.StateMachine;
+using CodeBase.StateMachine;
 using CodeBase.UI.WorldSpaceCanvas;
 using UnityEngine;
-using UnityEngine.Serialization;
 using Zenject;
 
 namespace CodeBase.Enemy
@@ -39,12 +35,11 @@ namespace CodeBase.Enemy
 
         private ScoreService _scoreService;
         private AnimationController _animationController;
-        private StateMachine _stateMachine;
+        private StateMachine.StateMachine _stateMachine;
         private SpawnController _spawnController;
         private HealthService _healthService;
         private MonoBehaviour _coroutineRunner;
         private Coroutine _deathCoroutine;
-
         private bool _isInitialized;
 
         public void Init(SpawnController spawnController)
@@ -52,7 +47,7 @@ namespace CodeBase.Enemy
             _spawnController = spawnController;
 
             _animationController = new AnimationController(animator);
-            _stateMachine = new StateMachine();
+            _stateMachine = new StateMachine.StateMachine();
             
             followTargetByCoroutine.Init(_spawnController, enemy.GetSpeed());
 
@@ -74,7 +69,6 @@ namespace CodeBase.Enemy
         private void Start()
         {
             _coroutineRunner = this;
-            _healthService.OnDeath += Death;
             enemy.OnBullet += Hit;
             detectionArea.OnDetection += Attack;
         }
@@ -139,7 +133,6 @@ namespace CodeBase.Enemy
 
         private void OnDestroy()
         {
-            _healthService.OnDeath -= Death;
             enemy.OnBullet -= Hit;
             detectionArea.OnDetection -= Attack;
         }

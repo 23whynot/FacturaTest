@@ -11,11 +11,9 @@ namespace CodeBase.Spawner
         [Header("Prefabs")] 
         [SerializeField] private GameObject groundPrefab;
 
-        [Header("Configuration")] [SerializeField]
-        private int spawnCount = 4;
-
+        [Header("Configuration")] 
+        [SerializeField] private int spawnCount = 4;
         [SerializeField] private int maxSegmentInMoment = 2;
-
         [SerializeField] private Vector3 spawnStartPoint;
         [SerializeField] private Vector3 spawnOffset;
 

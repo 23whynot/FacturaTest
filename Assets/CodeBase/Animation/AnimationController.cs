@@ -14,22 +14,17 @@ namespace CodeBase.Animation
 
         public void StartAnimationReactionOnHit()
         {
-           _animator.SetTrigger(AnimationConstans.ReactionOnHit);
-        }
-        
-        public void StartAnimationAttack()
-        {
-            _animator.SetTrigger(AnimationConstans.Attack);
+           _animator.SetTrigger(AnimationConstants.ReactionOnHit);
         }
 
         public void StartAnimationDeath()
         {
-            _animator.SetTrigger(AnimationConstans.Death);
+            _animator.SetTrigger(AnimationConstants.Death);
         }
 
         public void StartAnimationIdle()
         {
-            _animator.SetTrigger(AnimationConstans.Idle);
+            _animator.SetTrigger(AnimationConstants.Idle);
         }
     }
 }

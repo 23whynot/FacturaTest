@@ -7,6 +7,16 @@ namespace CodeBase.UI
 {
     public class CanvasManager : MonoBehaviour
     {
+        [Inject]
+        public void Construct(MainMenu mainMenu, Car.Car car, LooseMenu looseMenu, WinMenu winMenu, ScoreVisual scoreVisual)
+        {
+            _mainMenu = mainMenu;
+            _car = car;
+            _looseMenu = looseMenu;
+            _winMenu = winMenu;
+            _scoreVisual = scoreVisual;
+        }
+        
         private GameObject _mainMenuPanel;
         private GameObject _looseMenuPanel;
         private GameObject _winMenuPanel;
@@ -17,16 +27,6 @@ namespace CodeBase.UI
         private WinMenu _winMenu;
         private ScoreVisual _scoreVisual;
         private Car.Car _car;
-
-        [Inject]
-        public void Construct(MainMenu mainMenu, Car.Car car, LooseMenu looseMenu, WinMenu winMenu, ScoreVisual scoreVisual)
-        {
-            _mainMenu = mainMenu;
-            _car = car;
-            _looseMenu = looseMenu;
-            _winMenu = winMenu;
-            _scoreVisual = scoreVisual;
-        }
 
         private void Awake()
         {

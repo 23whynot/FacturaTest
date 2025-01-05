@@ -14,13 +14,14 @@ namespace CodeBase.UI.Panels
         [SerializeField] private Button restartGameButton;
         [SerializeField] private TextMeshProUGUI scoreText;
 
-        private ScoreService _scoreService;
-        
         [Inject]
         public void Construct(ScoreService scoreService)
         {
             _scoreService = scoreService;
         }
+
+        private ScoreService _scoreService;
+
         private void Awake()
         {
             restartGameButton.onClick.AddListener(RestartGame);

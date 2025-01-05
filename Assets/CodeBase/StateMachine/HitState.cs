@@ -2,13 +2,12 @@
 using CodeBase.Animation;
 using UnityEngine;
 
-namespace CodeBase.SMaschine
+namespace CodeBase.StateMachine
 {
     public class HitState : IState
     {
         private AnimationController _animationController;
         private ParticleSystem _particleSystem;
-
         private Collider _detectionAreaColider;
         private MonoBehaviour _coroutineRunner;
         
@@ -19,6 +18,7 @@ namespace CodeBase.SMaschine
             _detectionAreaColider = DetectionAreaColider;
             _coroutineRunner = coroutineRunner;
         }
+        
         public void Enter()
         {
             _detectionAreaColider.enabled = false;

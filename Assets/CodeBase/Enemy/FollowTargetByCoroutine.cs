@@ -36,9 +36,8 @@ namespace CodeBase.Enemy
             {
                 if (_spawnerController != null)
                 {
-                    
                     transform.position = Vector3.MoveTowards(
-                        transform.position, 
+                        transform.position,  
                         _spawnerController.GetTargetTransform().position, 
                         _speed * Time.deltaTime
                     );

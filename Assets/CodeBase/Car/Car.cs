@@ -2,11 +2,9 @@ using System;
 using CodeBase.Enemy;
 using CodeBase.Environment;
 using CodeBase.Services;
-using CodeBase.Stickmen.SMaschine;
 using CodeBase.UI.WorldSpaceCanvas;
 using DG.Tweening;
 using UnityEngine;
-using Zenject.SpaceFighter;
 
 namespace CodeBase.Car
 {

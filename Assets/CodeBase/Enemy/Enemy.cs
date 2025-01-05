@@ -3,7 +3,6 @@ using CodeBase.Bullets;
 using CodeBase.Car;
 using CodeBase.Core.ObjectPool;
 using CodeBase.Spawner;
-using CodeBase.UI.WorldSpaceCanvas;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -18,17 +17,14 @@ namespace CodeBase.Enemy
         [SerializeField] private int maxDamage = 25;
         [SerializeField] private int scoreCountMax = 20;
         [SerializeField] private int scoreCountMin = 5;
-
-
+        
         [Header("Scripts")]
         [SerializeField] private TriggerObserver triggerObserver;
         [SerializeField] private EnemyBehavior enemyBehavior;
         
-        
         private SpawnController _spawnController;
         public bool IsActive { get; private set; }
-
-
+        
         public Action<int> OnBullet;
 
         public void Init(SpawnController spawnController) 

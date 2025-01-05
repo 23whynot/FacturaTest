@@ -1,4 +1,3 @@
-using System;
 using CodeBase.Core.ObjectPool;
 using CodeBase.Spawner;
 using UnityEngine;
@@ -11,14 +10,13 @@ namespace CodeBase.Environment
         [SerializeField] private Collider boxCollider;
         [SerializeField] private Collider groundCollider;
 
-        private GroundSpawner _groundSpawner;
-        
         [Inject]
         public void Construct(GroundSpawner groundSpawner)
         {
             _groundSpawner = groundSpawner;
         }
 
+        private GroundSpawner _groundSpawner;
         public bool IsActive { get; private set; }
 
         public void Activate()
@@ -46,7 +44,7 @@ namespace CodeBase.Environment
 
         private void OnTriggerExit(Collider other)
         {
-            if (other.GetComponentInParent<Car.Car>() is { } car)
+            if (other.GetComponentInParent<Car.Car>())
             {
                 Deactivate();
                 _groundSpawner.GroundDeactivated();

@@ -14,12 +14,6 @@ namespace CodeBase.Bullets
 
         public void Init(Transform firePoint)
         {
-            if (firePoint == null)
-            {
-                Debug.LogError("End point is null!");
-                return;
-            }
-
             _firePoint = firePoint;
             _isInitialized = true;
         }
@@ -39,11 +33,9 @@ namespace CodeBase.Bullets
 
         public void ShowTracer()
         {
-            if (_isInitialized)
-            {
-                lineRenderer.SetPosition(0, _startPointPosition);
-                lineRenderer.SetPosition(1, bulletTransform.position);
-            }
+            if (!_isInitialized) return;
+            lineRenderer.SetPosition(0, _startPointPosition);
+            lineRenderer.SetPosition(1, bulletTransform.position);
         }
     }
 }

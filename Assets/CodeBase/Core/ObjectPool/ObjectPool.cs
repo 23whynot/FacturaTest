@@ -13,12 +13,10 @@ namespace CodeBase.Core.ObjectPool
     
         private DiContainer _container;
 
-
         public ObjectPool(DiContainer container)
         {
             _container = container;
         }
-
     
         public void RegisterPrefab<T>(GameObject prefab, int preLoadCount) where T : IPoolableObject
         {
@@ -44,8 +42,7 @@ namespace CodeBase.Core.ObjectPool
                 }
             }
         }
-
-    
+        
         public T GetObject<T>() where T : IPoolableObject
         {
             Type objectType = typeof(T);
@@ -73,14 +70,12 @@ namespace CodeBase.Core.ObjectPool
             Debug.LogError($"No prefab registered for type {objectType}");
             return default;
         }
-
-    
+        
         public void ReturnObject(IPoolableObject obj)
         {
             obj.Deactivate();
         }
-
-    
+        
         private T CreateNewObject<T>(GameObject prefab) where T : IPoolableObject
         {
             var newObjGameObject = _container.InstantiatePrefab(prefab);

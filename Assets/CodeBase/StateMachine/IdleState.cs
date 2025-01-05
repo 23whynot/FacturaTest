@@ -1,9 +1,6 @@
-﻿
+﻿using CodeBase.Animation;
 
-using CodeBase.Animation;
-using CodeBase.SMaschine;
-
-namespace CodeBase.Stickmen.StateMachine
+namespace CodeBase.StateMachine
 {
     public class IdleState : IState
     {
@@ -20,7 +17,7 @@ namespace CodeBase.Stickmen.StateMachine
 
         public void Exit()
         {
-            
+            _animationController.StartAnimationIdle();
         }
     }
 }

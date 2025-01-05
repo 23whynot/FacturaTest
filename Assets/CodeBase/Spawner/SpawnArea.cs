@@ -4,9 +4,8 @@ namespace CodeBase.Spawner
 {
     public class SpawnArea : MonoBehaviour
     {
-        [SerializeField] private Vector3 areaSize = new Vector3(); 
-
-       
+        [SerializeField] private Vector3 areaSize; 
+        
         public Vector3 GetSpawnPoint()
         {
             Vector3 randomPoint = new Vector3(
@@ -16,7 +15,6 @@ namespace CodeBase.Spawner
             );
             return transform.position + randomPoint;
         }
-
         
         private void OnDrawGizmos()
         {

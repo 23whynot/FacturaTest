@@ -1,6 +1,4 @@
 using System;
-using System.Collections;
-using System.Collections.Generic;
 using CodeBase.Constants;
 using CodeBase.UI.Panels;
 using DG.Tweening;
@@ -12,19 +10,16 @@ namespace CodeBase.Camera
     public class CameraController : MonoBehaviour
     {
         [SerializeField] private Animator animator;
-        [SerializeField] private float animationDuration;
-        
-        private MainMenu _mainMenu;
-        private Coroutine _coroutine;
-        private Tween _moveTween;
-
 
         [Inject]
         public void Construct(MainMenu mainMenu)
         {
             _mainMenu = mainMenu;
         }
-        
+
+        private MainMenu _mainMenu;
+        private Coroutine _coroutine;
+        private Tween _moveTween;
         public Action OnCameraReady;
 
         private void Start()
@@ -34,15 +29,14 @@ namespace CodeBase.Camera
 
         private void AnimationStart()
         {
-            animator.SetBool(AnimationConstans.StartGame, false);
+            animator.SetBool(AnimationConstants.StartGame, false);
         }
 
         private void OnAnimationEnd()
         {
             OnCameraReady?.Invoke();
         }
-
-
+        
         private void OnDestroy()
         {
             _mainMenu.OnStartGame -= AnimationStart;

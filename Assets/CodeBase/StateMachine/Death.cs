@@ -1,11 +1,8 @@
-﻿using CodeBase.Animation;
-using UnityEngine;
-using IState = CodeBase.SMaschine.IState;
-using SMaschine_IState = CodeBase.SMaschine.IState;
+﻿using UnityEngine;
 
-namespace CodeBase.Stickmen.SMaschine
+namespace CodeBase.StateMachine
 {
-    public class Death : SMaschine_IState
+    public class Death : IState 
     {
         private ParticleSystem _particle;
 

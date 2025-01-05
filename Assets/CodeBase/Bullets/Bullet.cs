@@ -10,18 +10,9 @@ namespace CodeBase.Bullets
 {
     public class Bullet : MonoBehaviour, IPoolableObject
     {
-        [SerializeField] private int minDamage = 50;
-        [SerializeField] private int maxDamage = 100;
+        [SerializeField] private int minDamage = 0;
+        [SerializeField] private int maxDamage = 99;
         [SerializeField] private BulletTracer tracer;
-        
-        readonly float _moveDurationMultiplayer = 0.1f;
-
-        private TurretController _turretController;
-        private CarMovement _carMovement;
-        private Tween _moveTween;
-        private bool _isInjected;
-        public bool IsActive { get; private set; }
-
 
         [Inject]
         private void Construct(TurretController turretController, CarMovement carMovement)
@@ -33,6 +24,14 @@ namespace CodeBase.Bullets
             
             tracer.Init(_turretController.GetFirePoint());
         }
+
+        private TurretController _turretController;
+        private CarMovement _carMovement;
+        private Tween _moveTween;
+        readonly float _moveDurationMultiplayer = 0.1f;
+        private bool _isInjected;
+        public bool IsActive { get; private set; }
+
 
         public int GetDamage()
         {
