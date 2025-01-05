@@ -13,6 +13,10 @@ namespace CodeBase.UI.WorldSpaceCanvas
         public void ActivateScoreDisplay(int score)
         {
             worldSpaceCanvas.enabled = true;
+            if (score>0)
+            {
+                ShowScoreFromDeath(score);
+            }
             ShowScoreFromDeath(score);
         }
         private void ShowScoreFromDeath(int score)

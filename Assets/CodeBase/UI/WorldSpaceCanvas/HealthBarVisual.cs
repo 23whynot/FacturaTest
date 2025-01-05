@@ -11,13 +11,15 @@ namespace CodeBase.UI.WorldSpaceCanvas
         
         private float _currentHealth = 1f;
         
-        public void ActivateHealthBar(int count)
+        public void ActivateHealthBar(int health)
         {
             fillBackGround.SetActive(true);
-            SetCount(count);
+            healthBar.fillAmount = 0f;       
+            _currentHealth = 1f;     
+            SetCount(health); 
         }
 
-        private void SetCount(int count)
+        public void SetCount(int count)
         {
             _currentHealth = count / 100f;
             healthBar.fillAmount = _currentHealth;
@@ -25,7 +27,8 @@ namespace CodeBase.UI.WorldSpaceCanvas
 
         public void DeactivateHealthBar()
         {
-            fillBackGround.SetActive(false);
+            fillBackGround.SetActive(false); // Скрываем фон полоски здоровья
+              
         }
     }
 }

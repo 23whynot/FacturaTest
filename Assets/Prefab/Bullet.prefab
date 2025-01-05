@@ -307,6 +307,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2e2854f1c7053aa49af6ec8ef7438385, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  minDamage: 0
-  maxDamage: 99
+  minDamage: 10
+  maxDamage: 49
   tracer: {fileID: 7223471660234556728}

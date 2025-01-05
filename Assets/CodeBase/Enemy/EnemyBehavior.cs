@@ -61,6 +61,7 @@ namespace CodeBase.Enemy
                 Idle();
             }
             
+            scoreDisplayManager.ActivateScoreDisplay(0);
             healthBarVisual.DeactivateHealthBar();
             _healthService = new HealthService(enemy.GetHealth());
             skinnedMeshRenderer.enabled = true;
@@ -113,7 +114,8 @@ namespace CodeBase.Enemy
         private void Hit(int damage)
         {
             _healthService.Decrease(damage);
-            healthBarVisual.ActivateHealthBar(damage);
+            healthBarVisual.ActivateHealthBar(enemy.GetHealth());
+            healthBarVisual.SetCount(damage);
             
             if (_healthService.GetCurrentHealth() <= 0)
             {
